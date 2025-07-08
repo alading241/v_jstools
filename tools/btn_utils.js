@@ -5,6 +5,7 @@ var sojsontn = document.getElementById('sojson')
 var obtn = document.getElementById('ob')
 var jsfuckbtn = document.getElementById('jsfuck')
 var obnormalbtn = document.getElementById('obnormal')
+var tr2es5btn = document.getElementById('tr2es5')
 var babel_aline = document.getElementById('babel_aline')
 var uglifybtn = document.getElementById('uglify')
 var terserbtn = document.getElementById('terser')
@@ -85,6 +86,14 @@ obtn.addEventListener('click', function(e){
 obnormal.addEventListener('click', function(e){
   try{
     ;(txt2||txt).value = muti_process_defusion(txt.value, get_ob_config())
+  }catch(e){
+    ;(txt2||txt).value = e.stack
+  }
+})
+
+tr2es5.addEventListener('click', function(e){
+  try{
+    ;(txt2||txt).value = transform_jscode_to_es5(txt.value, get_ob_config())
   }catch(e){
     ;(txt2||txt).value = e.stack
   }
@@ -174,11 +183,12 @@ envb.addEventListener('dblclick', function(e){
       result["config-hook-global"] = true
       var replacer_injectfunc = (injectfunc + '').replace('$domobj_placeholder', make_domhooker_funcs())
       var replacer_injectfunc = replacer_injectfunc.replace('$make_v_func', make_v+';')
-      var inject_code = \`(\${replacer_injectfunc})(\${JSON.stringify(result)},window)\`
       var log_toggle = result["config-hook-log-toggle"]
+      var temp_toggle = false
       if(!log_toggle){
-        inject_code += ';globalConfig.logtogglefunc({key:"w",altKey:true})'
+        temp_toggle = true
       }
+      var inject_code = \`(\${replacer_injectfunc})(\${JSON.stringify(result)},window,\${temp_toggle})\`
       my_magic_obj['inject_code'] = inject_code
     })
     `
@@ -195,7 +205,7 @@ envb.addEventListener('dblclick', function(e){
       debug_tab = true
       chrome.tabs.query({}, function(tabs) {
         for (var i = 0; i < tabs.length; i++) {
-          if (tabs[i].url.indexOf("chrome") == 0){
+          if (tabs[i].url.startsWith("chrome")){
             continue
           }
           attach_tab_debug(tabs[i].id, code)

@@ -1,4 +1,10 @@
-// importScripts("./tools/babel_asttool.js", "./tools/cheerio.js", "./tools/replacer.js", "./tools/error_front.js")
+// importScripts(
+//   "./tools/babel_asttool.js", 
+//   "./tools/cheerio.js", 
+//   "./tools/replacer.js", 
+//   "./tools/error_front.js",
+//   "./tools/sub_logger.js"
+// )
 // chrome.contextMenus.create({
 //   id: "v_menu",
 //   title: "打开 v_jstools 动态调试",
@@ -383,7 +389,7 @@ function AttachDebugger() {
     { active: true, currentWindow: true }, 
     function (tabs) {
       currtab = { tabId: tabs[0].id };
-      chrome.debugger.attach(currtab, "1.2", function () {
+      chrome.debugger.attach(currtab, "1.3", function () {
         sendCommand("Network.enable", {}, currtab, function(){ sendCommand("Network.setCacheDisabled", {cacheDisabled: true}, currtab)} ) // 确保 Fetch.getResponseBody 一定能收到东西
         sendCommand("Fetch.enable", { patterns: [
           // Document, Stylesheet, Image, Media, Font, Script, TextTrack, XHR, Fetch, EventSource, WebSocket, Manifest, SignedExchange, Ping, CSPViolationReport, Preflight, Other
@@ -407,7 +413,7 @@ function AttachDebugger() {
           // {urlPattern:"*",resourceType:"SignedExchange",requestStage:"Response"}, 
           // {urlPattern:"*",resourceType:"Preflight",requestStage:"Response"}, 
 
-          {urlPattern:"*",requestStage:"request"}, 
+          // {urlPattern:"*",requestStage:"request"}, 
         ] }, currtab);
       });
     }

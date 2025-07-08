@@ -26,13 +26,10 @@
     <div id="container">
         <section class="tab">
             <div>
+                  <button id="normal_config">标准hook配置</button><br/>
                   <label ><input type="checkbox" data-key="config-hook-global">是否挂钩总开关</label> 
                   <label id='debug_hook' style="color: #FFEEEE">cilame</label>
                   <br/>
-                  <!-- <label ><input type="checkbox" data-key="config-hook-alt-w">启动 alt + w 快捷键（快捷键开启/关闭日志，当前焦点需在网页上才有效）</label> 
-                  <br/> -->
-                  <!-- <label ><input type="checkbox" data-key="config-hook-console">hook-console（使用 v_log 替换 console.log 并将 console 的属性都设置为空函数）</label> 
-                  <br/> -->
                   <label ><input type="checkbox" data-key="config-hook-Function">hook-Function</label> 
                   <br/>
                   <label ><input type="checkbox" data-key="config-hook-eval">hook-eval（eval函数会记录上下文，若 eval 用到封闭的上下文参数可能报错）</label> 
@@ -188,6 +185,7 @@
             <button id='open_ast_page'>打开本地ast页面</button>
             <button id='sojson'>解密sojson混淆</button>
             <button id='obnormal'>普通解混淆</button>
+            <button id='tr2es5'>js转es5</button>
             <button id='ob'>解密ob高级混淆</button>
             <button id='jsfuck'>解密jsfuck混淆</button>
             <button id='babel_aline'>将代码变成一行，不压缩[babel]</button>
@@ -238,6 +236,8 @@
             <button id="myinject_enc_1">事件分身代码</button>
             <button id="myinject_enc_2">简易反调试代码</button>
             <button id="myinject_enc_3">捕获请求代码</button>
+            <button id="myinject_enc_4">canvas分析代码</button>
+            <button id="myinject_enc_5">生成代码</button>
 
             <!-- <button id="test_get_model_code">测试获取模板代码</button> -->
             <br/>
